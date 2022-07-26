@@ -51,10 +51,29 @@ func main() {
 			t1, t2,
 		},
 	}
-	fmt.Println(lista.tasks[0])
+
 	lista.agregarLista(t3)
-	fmt.Println(len(lista.tasks))
-	lista.eliminarLista(1)
-	fmt.Println(len(lista.tasks))
+
+	for i := 0; i < len(lista.tasks); i++ {
+		fmt.Println("index", i, "nombre", lista.tasks[i].nombre)
+	}
+
+	for index, tarea := range lista.tasks {
+		fmt.Println("index", index, "nombre", tarea.nombre)
+	}
+
+	for i := 0; i < 10; i++ {
+		if i == 5 {
+			break
+		}
+		fmt.Println(i)
+	}
+
+	for i := 0; i < 10; i++ {
+		if i == 5 {
+			continue
+		}
+		fmt.Println(i)
+	}
 
 }
