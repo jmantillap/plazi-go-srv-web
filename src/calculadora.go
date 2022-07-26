@@ -8,37 +8,53 @@ import (
 	"strings"
 )
 
-func main() {
+type calc struct {
+}
+
+func (calc) operate(entrada string, operador string) int {
+
+	entradaLimpia := strings.Split(entrada, operador)
+	operador1 := parsear(entradaLimpia[0])
+	operador2 := parsear(entradaLimpia[1])
+
+	switch operador {
+	case "+":
+		fmt.Println(operador1 + operador2)
+		return operador1 + operador2
+	case "-":
+		fmt.Println(operador1 - operador2)
+		return operador1 - operador2
+	case "*":
+		fmt.Println(operador1 * operador2)
+		return operador1 * operador2
+	case "/":
+		fmt.Println(operador1 / operador2)
+		return operador1 / operador2
+	default:
+		fmt.Println("Operador no soportado")
+		return 0
+	}
+}
+
+func leerEntrada() string {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	operacion := scanner.Text()
 	fmt.Println(operacion)
-	operador := "-"
-	valores := strings.Split(operacion, operador)
-	fmt.Println(valores)
-	fmt.Println(valores[0] + valores[1])
-	operador1, _ := strconv.Atoi(valores[0])
-	operador2, err := strconv.Atoi(valores[1])
-	if err != nil {
-		fmt.Println(err)
-	}
-	/*if operador == "+" {
-		fmt.Println(operador1 + operador2)
-	}
-	if operador == "-" {
-		fmt.Println(operador1 - operador2)
-	}*/
-	switch operador {
-	case "+":
-		fmt.Println(operador1 + operador2)
-	case "-":
-		fmt.Println(operador1 - operador2)
-	case "*":
-		fmt.Println(operador1 * operador2)
-	case "/":
-		fmt.Println(operador1 / operador2)
-	default:
-		fmt.Println("Operador no soportado")
-	}
+	return operacion
+}
+
+func parsear(entrada string) int {
+	operador, _ := strconv.Atoi(entrada)
+	return operador
+}
+
+func main() {
+	entrada := leerEntrada()
+	operador := leerEntrada()
+	fmt.Println(entrada)
+	fmt.Println(operador)
+	c := calc{}
+	c.operate(entrada, operador)
 
 }
