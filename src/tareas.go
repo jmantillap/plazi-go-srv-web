@@ -2,6 +2,18 @@ package main
 
 import "fmt"
 
+type taskList struct {
+	tasks []*task
+}
+
+func (t *taskList) agregarLista(tarea *task) {
+	t.tasks = append(t.tasks, tarea)
+}
+
+func (t *taskList) eliminarLista(index int) {
+	t.tasks = append(t.tasks[:index], t.tasks[index+1:]...)
+}
+
 type task struct {
 	nombre      string
 	descripcion string
@@ -21,14 +33,28 @@ func (t *task) actualizarNombre(nombre string) {
 }
 
 func main() {
-	t := &task{
+	t1 := &task{
 		nombre:      "Completar mi curso de go",
 		descripcion: "Esta semana",
 	}
-	fmt.Println(t)
-	fmt.Printf("%+v\n", t)
-	t.marcarCompleta()
-	t.actualizarNombre("Finalizar mi curso de go")
-	t.actualizarDescripcion("Ahora mismo")
-	fmt.Printf("%+v\n", t)
+	t2 := &task{
+		nombre:      "Completar mi curso de pyton",
+		descripcion: "Esta semana",
+	}
+	t3 := &task{
+		nombre:      "Completar mi curso de nodejs",
+		descripcion: "Esta semana",
+	}
+
+	lista := &taskList{
+		tasks: []*task{
+			t1, t2,
+		},
+	}
+	fmt.Println(lista.tasks[0])
+	lista.agregarLista(t3)
+	fmt.Println(len(lista.tasks))
+	lista.eliminarLista(1)
+	fmt.Println(len(lista.tasks))
+
 }
