@@ -13,16 +13,24 @@ func main() {
 
 	servidores := []string{"http://platzi.com", "http://google.com",
 		"http://facebook.com", "http://instagram.com"}
-	for _, servidor := range servidores {
-		go revisarServidor(servidor, canal)
-	}
 
-	for i := 0; i < len(servidores); i++ {
+	i := 0
+
+	for {
+		if i > 2 {
+			break
+		}
+		for _, servidor := range servidores {
+			go revisarServidor(servidor, canal)
+		}
+		time.Sleep(1 * time.Second)
 		fmt.Println(<-canal)
+		i++
 	}
 
-	//fmt.Println(<-canal)
-	//fmt.Println(<-canal)
+	/*for i := 0; i < len(servidores); i++ {
+		fmt.Println(<-canal)
+	}*/
 
 	tiempoPaso := time.Since(inicio)
 	fmt.Println("tiempo ejecucion %s\n", tiempoPaso)
