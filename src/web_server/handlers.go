@@ -34,6 +34,13 @@ func UserPostRequest(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "error : %v", err)
 		return
 	}
-	fmt.Println(user.Name)
-	fmt.Fprintf(w, "Payload %v\n", user)
+	//fmt.Println(user.Name)
+	response, err := user.ToJson()
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	//fmt.Fprintf(w, "Payload %v\n", user)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(response)
 }
